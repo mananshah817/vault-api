@@ -15,31 +15,47 @@ public class BankController : ControllerBase
         _config = config;
     }
 
-    [HttpPost]
-    public async Task<IActionResult> Add(BankModel model)
-    {
-        var userId = User.FindFirst("id")?.Value;
-        var encAcc = CryptoHelper.Encrypt(model.AccountNumber, _config["Crypto:Key"]);
-
-        using var con = new NpgsqlConnection(_config.GetConnectionString("Default"));
-        await con.ExecuteAsync(
-            @"insert into bank_accounts(user_id, bank_name, account_enc, ifsc, branch)
-              values(@UserId, @BankName, @AccountEnc, @IFSC, @Branch)",
-            new { UserId = userId, model.BankName, AccountEnc = encAcc, model.IFSC, model.Branch });
-
-        return Ok("Saved");
-    }
-
     [HttpGet]
-    public async Task<IActionResult> List()
+public async Task<IActionResult> Get()
+{
+    try
     {
-        var userId = User.FindFirst("id")?.Value;
-        using var con = new NpgsqlConnection(_config.GetConnectionString("Default"));
-
-        var data = await con.QueryAsync(
-            "select id, bank_name, ifsc, branch from bank_accounts where user_id=@UserId",
-            new { UserId = userId });
+        using var con = new NpgsqlConnection(_connStr);
+        var data = await con.QueryAsync("select id, bank_name, ifsc, branch from banks where user_id = @uid",
+            new { uid = User.GetUserId() });
 
         return Ok(data);
     }
+    catch (Exception ex)
+    {
+        return StatusCode(500, ex.Message);   // 🔥 see real error in browser
+    }
+}
+
+[HttpPost]
+public async Task<IActionResult> Add(BankModel model)
+{
+    try
+    {
+        using var con = new NpgsqlConnection(_connStr);
+
+        await con.ExecuteAsync(@"
+            insert into banks (bank_name, account_number, ifsc, branch, user_id)
+            values (@BankName, @AccountNumber, @IFSC, @Branch, @UserId)",
+            new
+            {
+                model.BankName,
+                model.AccountNumber,
+                model.IFSC,
+                model.Branch,
+                UserId = User.GetUserId()
+            });
+
+        return Ok(new { success = true });
+    }
+    catch (Exception ex)
+    {
+        return StatusCode(500, ex.Message);   // 🔥 real error
+    }
+}
 }
