@@ -1,6 +1,9 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+System.Net.ServicePointManager.DefaultConnectionLimit = 100;
+System.Net.ServicePointManager.UseNagleAlgorithm = false;
+System.Net.ServicePointManager.Expect100Continue = false;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,6 +36,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 var app = builder.Build();
 
+app.UseCors("AllowAll");
 if (app.Environment.IsDevelopment() || true)  // 🔓 force enable on Render
 {
     app.UseSwagger();
