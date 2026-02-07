@@ -1,0 +1,17 @@
+C:\Users\rajum\VaultApi\bin\Release\net8.0\publish\VaultApi.exe
+C:\Users\rajum\VaultApi\bin\Release\net8.0\publish\out\web.config
+C:\Users\rajum\VaultApi\bin\Release\net8.0\publish\appsettings.Development.json
+C:\Users\rajum\VaultApi\bin\Release\net8.0\publish\appsettings.json
+C:\Users\rajum\VaultApi\bin\Release\net8.0\publish\out\appsettings.Development.json
+C:\Users\rajum\VaultApi\bin\Release\net8.0\publish\out\appsettings.json
+C:\Users\rajum\VaultApi\bin\Release\net8.0\publish\out\VaultApi.deps.json
+C:\Users\rajum\VaultApi\bin\Release\net8.0\publish\out\VaultApi.runtimeconfig.json
+C:\Users\rajum\VaultApi\bin\Release\net8.0\publish\VaultApi.dll
+C:\Users\rajum\VaultApi\bin\Release\net8.0\publish\VaultApi.deps.json
+C:\Users\rajum\VaultApi\bin\Release\net8.0\publish\VaultApi.runtimeconfig.json
+C:\Users\rajum\VaultApi\bin\Release\net8.0\publish\VaultApi.pdb
+C:\Users\rajum\VaultApi\bin\Release\net8.0\publish\Microsoft.AspNetCore.OpenApi.dll
+C:\Users\rajum\VaultApi\bin\Release\net8.0\publish\Microsoft.OpenApi.dll
+C:\Users\rajum\VaultApi\bin\Release\net8.0\publish\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\rajum\VaultApi\bin\Release\net8.0\publish\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\rajum\VaultApi\bin\Release\net8.0\publish\Swashbuckle.AspNetCore.SwaggerUI.dll

@@ -2,6 +2,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // ✅ Register services BEFORE Build()
 builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 builder.Services.AddCors(options =>
 {
@@ -15,12 +17,13 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-// ✅ Middleware AFTER Build()
-app.UseCors("all");
+if (app.Environment.IsDevelopment() || true)  // 🔓 force enable on Render
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 
 app.UseHttpsRedirection();
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.Run();

@@ -1,0 +1,12 @@
+C:\Users\rajum\VaultApi\out\VaultApi.exe
+C:\Users\rajum\VaultApi\out\appsettings.Development.json
+C:\Users\rajum\VaultApi\out\appsettings.json
+C:\Users\rajum\VaultApi\out\VaultApi.dll
+C:\Users\rajum\VaultApi\out\VaultApi.deps.json
+C:\Users\rajum\VaultApi\out\VaultApi.runtimeconfig.json
+C:\Users\rajum\VaultApi\out\VaultApi.pdb
+C:\Users\rajum\VaultApi\out\Microsoft.AspNetCore.OpenApi.dll
+C:\Users\rajum\VaultApi\out\Microsoft.OpenApi.dll
+C:\Users\rajum\VaultApi\out\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\rajum\VaultApi\out\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\rajum\VaultApi\out\Swashbuckle.AspNetCore.SwaggerUI.dll
