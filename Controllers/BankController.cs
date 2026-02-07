@@ -15,14 +15,19 @@ public class BankController : ControllerBase
         _config = config;
     }
 
-    private string GetUserId()
-    {
-        return User.FindFirst("id")?.Value
-            ?? User.FindFirst("userId")?.Value
-            ?? User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value
-            ?? throw new Exception("UserId claim not found in JWT");
-    }
+    private int GetUserId()
+{
+    var idStr =
+        User.FindFirst("id")?.Value ??
+        User.FindFirst("userId")?.Value ??
+        User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value
+        ?? throw new Exception("UserId claim not found in JWT");
 
+    if (!int.TryParse(idStr, out var id))
+        throw new Exception("UserId claim is not integer");
+
+    return id;
+}
     [HttpPost]
     public async Task<IActionResult> Add(BankModel model)
     {
