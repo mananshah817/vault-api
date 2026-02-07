@@ -3,10 +3,17 @@ using System.Text;
 
 public static class CryptoHelper
 {
+    private static byte[] NormalizeKey(string key)
+    {
+        // Derive 32 bytes key from any length string using SHA256
+        using var sha = SHA256.Create();
+        return sha.ComputeHash(Encoding.UTF8.GetBytes(key));
+    }
+
     public static string Encrypt(string plainText, string key)
     {
         using var aes = Aes.Create();
-        aes.Key = Encoding.UTF8.GetBytes(key);
+        aes.Key = NormalizeKey(key);     // ✅ always 32 bytes
         aes.GenerateIV();
 
         using var encryptor = aes.CreateEncryptor();
@@ -23,7 +30,7 @@ public static class CryptoHelper
         var cipherBytes = Convert.FromBase64String(parts[1]);
 
         using var aes = Aes.Create();
-        aes.Key = Encoding.UTF8.GetBytes(key);
+        aes.Key = NormalizeKey(key);     // ✅ always 32 bytes
         aes.IV = iv;
 
         using var decryptor = aes.CreateDecryptor();
