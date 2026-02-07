@@ -1,20 +1,21 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+
 System.Net.ServicePointManager.DefaultConnectionLimit = 100;
 System.Net.ServicePointManager.UseNagleAlgorithm = false;
 System.Net.ServicePointManager.Expect100Continue = false;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// ✅ Register services BEFORE Build()
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// ✅ CORS
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("all", policy =>
+    options.AddPolicy("AllowAll", policy =>
         policy.AllowAnyOrigin()
               .AllowAnyHeader()
               .AllowAnyMethod());
@@ -36,15 +37,15 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 var app = builder.Build();
 
-app.UseCors("AllowAll");
-if (app.Environment.IsDevelopment() || true)  // 🔓 force enable on Render
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+// ⚠️ Order matters + correct policy name
+app.UseCors("AllowAll");   // ✅ same name as AddPolicy
 
-app.UseAuthentication();
+app.UseSwagger();
+app.UseSwaggerUI();
+
 app.UseHttpsRedirection();
+app.UseAuthentication();
 app.UseAuthorization();
+
 app.MapControllers();
 app.Run();
